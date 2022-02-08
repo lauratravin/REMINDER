@@ -6,3 +6,16 @@
   height: 20px;
   margin: 5px 10px;
 }
+
+
+.login,.registration {
+  width: 50%;
+  margin: auto;
+  padding: 50px;
+  border: solid green;
+}
+.login input{
+  height: 20px;
+  margin: 5px 10px;
+  
+}

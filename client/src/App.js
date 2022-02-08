@@ -36,8 +36,8 @@ function App() {
                 <input type="password" onChange={(e)=>{setPasswordReg(e.target.value)}}></input><br/>
                 <button onClick={register}>Register</button>
             </div>
-            <div className="registration">
-                <h1>Registration</h1>
+            <div className="login">
+                <h1>Login</h1>
                 <label>Username</label>
                 <input type="text" onChange={(e)=>{setUsernameLog(e.target.value)}}/><br/>
                 <label>Password</label>

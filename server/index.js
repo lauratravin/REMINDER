@@ -3,8 +3,12 @@ const app = express();
 const cors = require('cors')
 const db = require('./db')
 
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+
 app.use(cors())
 app.use(express.json())
+
 
 
 app.post('/register', (req, res)=> {
