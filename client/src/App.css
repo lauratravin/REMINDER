@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  width: 1400px;
+  height: 1000px;
+  margin: auto;
+  padding-top: 50px;
 }
 
 .registration input{
@@ -10,12 +14,18 @@
 
 .login,.registration {
   width: 50%;
-  margin: auto;
+  margin: 10px auto;
   padding: 50px;
-  border: solid green;
+  border: solid grey 1px;
+  background-color: darkseagreen;
 }
 .login input{
   height: 20px;
   margin: 5px 10px;
   
+}
+
+button{
+  height: 50px;
+  width: 100px;
 }
