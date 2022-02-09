@@ -6,6 +6,11 @@ const db = require('./db')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
+
+const bodyParser = requiere('body-parser')
+const cookieParser = require('cookiePasrser')
+const session = require('express-session')
+
 app.use(cors())
 app.use(express.json())
 
