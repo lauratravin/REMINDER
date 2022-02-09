@@ -14,23 +14,40 @@ app.use(express.json())
 app.post('/register', (req, res)=> {
   const username= req.body.username;
   const password= req.body.password;
-  console.log("username: ", username, "password: ", password  )
-  db.query("INSERT INTO login (username,password) VALUES (?,?)", [username, password], (err, result) => {
-    console.log(err)
+ 
+
+  bcrypt.hash(password,saltRounds, (err, hash) => {
+    db.query("INSERT INTO login (username,password) VALUES (?,?)", [username, hash], (err, result) => {
+      console.log(err)
+    })
   })
-})
+ 
+});
 
 app.post('/login', (req, res)=> {
   const username= req.body.username;
   const password= req.body.password;
   
-  db.query("SELECT * FROM login WHERE username = ? AND password= ?", [username, password], (err, result) => {
+  //db.query("SELECT * FROM login WHERE username = ? AND password= ?", [username, password], (err, result) => {
     
+    db.query("SELECT * FROM login WHERE username = ?", username, (err, result) => {
+
     if (err){
-       res.send(err) //if error res sends error and stop
+       res.send({err: err}) //if error res sends error and stop
       } 
+
     if(result.length > 0){
-      res.send(result)
+    //  res.send(result)
+    //we compare here if hask pass == password
+          bcrypt.compare(password, result[0].password, (error, response ) => {
+                if (response){
+                  res.send(result)
+                } else {
+                  res.send({message:  "wrong username/password combination"})
+                }
+
+          })
+
     } else {
       res.send({message: "Wrong username/password"})
     }
