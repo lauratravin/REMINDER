@@ -49,7 +49,7 @@ app.post('/login', (req, res)=> {
           })
 
     } else {
-      res.send({message: "Wrong username/password"})
+      res.send({message: "Wrong username"})
     }
     
   })
