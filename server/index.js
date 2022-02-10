@@ -7,19 +7,39 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 
 
-const bodyParser = requiere('body-parser')
-const cookieParser = require('cookiePasrser')
+
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
-app.use(cors())
-app.use(express.json())
+//change for sessions
+app.use(cors({
+   origin: ["http://localhost:3000"],
+   methods: ["GET", "POST"],
+   credentials: true
+
+}))
+app.use(express.json()) //middleware
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({extended: true }))
+
+app.use(session({
+  key: "userId", //name of the cookie
+  secret: "reminder",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 24 //24 hs in sec
+  },
+}))
 
 
+
+//registration
 
 app.post('/register', (req, res)=> {
   const username= req.body.username;
   const password= req.body.password;
- 
 
   bcrypt.hash(password,saltRounds, (err, hash) => {
     db.query("INSERT INTO login (username,password) VALUES (?,?)", [username, hash], (err, result) => {
@@ -28,6 +48,8 @@ app.post('/register', (req, res)=> {
   })
  
 });
+
+//login
 
 app.post('/login', (req, res)=> {
   const username= req.body.username;
@@ -46,6 +68,8 @@ app.post('/login', (req, res)=> {
     //we compare here if hask pass == password
           bcrypt.compare(password, result[0].password, (error, response ) => {
                 if (response){
+                  req.session.user = result  //creating the session
+                  console.log(req.session.user)
                   res.send(result)
                 } else {
                   res.send({message:  "wrong username/password combination"})
@@ -61,7 +85,7 @@ app.post('/login', (req, res)=> {
 })
 
 
-
+//server up
 
 app.listen(3001,() => {
   console.log("reminder server running")

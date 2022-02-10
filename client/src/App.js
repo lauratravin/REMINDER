@@ -4,6 +4,7 @@ import Axios from 'axios';
 
 function App() {
 
+  Axios.defaults.withCredentials = true;
 
   const [usernameReg, setUsernameReg] = useState(' ')
   const [passwordReg, setPasswordReg] = useState(' ')
