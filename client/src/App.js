@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 
 function App() {
@@ -24,9 +24,14 @@ function App() {
     })
  }
 
+ useEffect( () => {
+    Axios.get('http://localhost:3001/login').then( (response)=>{ 
+    console.log(response)  
+    if(response.data.loggedIn){ setLogginStatus(response.data.user[0].username) }})
+ } , 
+ []); //[] run only at initial render
+
   return (
-    
-    
         
           <div className="App">
             <div className="registration">

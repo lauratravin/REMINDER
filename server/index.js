@@ -50,6 +50,15 @@ app.post('/register', (req, res)=> {
 });
 
 //login
+app.get('/login', (req, res) => {
+  //question if user is login or not
+  if (req.session.user) {
+    res.send({loggedIn: true, user: req.session.user})
+  } else {
+    res.send({loggedIn: false})
+  }
+     
+});
 
 app.post('/login', (req, res)=> {
   const username= req.body.username;
