@@ -9,18 +9,26 @@ import PageNotFound from './pages/PageNoFound';
 function App() {
 
   return(
-   
-   <Router>
-      <Switch>
-        <Route path="/" exact component={Home}  />
-        <Route path="/about" exact component={About} />
-        <Route path="/register" exact component={Register} />
-        <Route path="*" exact component={PageNotFound} />
-        
+    <>
+      <Router>
+      <div style={{ height: 100, backgroundColor: "yellow"}}>
+        <Link to="/">Home</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/about">About</Link>
+       
+      </div>
+    
+          <Switch>
+            <Route path="/" exact component={Home}  />
+            <Route path="/about" exact component={About} />
+            <Route path="/register" exact component={Register} />
+            <Route path="*" exact component={PageNotFound} />
+            
 
 
-      </Switch>
-   </Router>
+          </Switch>
+      </Router>
+   </>
   )  
 }
 
