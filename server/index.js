@@ -94,6 +94,20 @@ app.post('/login', (req, res)=> {
 })
 
 
+
+//logout
+
+app.get('/logout',(req, res)=>{
+      req.session.destroy( (err) => {
+        if(err) throw err;
+        res.send( {message: "ok"})
+      });
+});
+
+
+
+
+
 //server up
 
 app.listen(3001,() => {

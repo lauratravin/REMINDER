@@ -2,22 +2,31 @@
 import '../App.css';
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 function Home() {
 
   Axios.defaults.withCredentials = true;
 
- 
+  let history = useHistory()
   const [usernameLog, setUsernameLog] = useState(' ')
   const [passwordLog, setPasswordLog] = useState(' ')
   const [logginStatus, setLogginStatus] = useState(' ')
 
-  
+  // useEffect(() =>{ if (logginStatus){
+  //   console.log(logginStatus)
+  //                   setLogginStatus(' log out')
+  //                   }},[])
+//chequar si esta logueado cuando carga home entonces hacer un effect que deslogue. 
 
   const login= () => {
     Axios.post('http://localhost:3001/login', {username: usernameLog, password: passwordLog})
     .then((response) =>  {
-      if (response.data.message){  setLogginStatus(response.data.message)} else { setLogginStatus(response.data[0].username)}
+      if (response.data.message){  setLogginStatus(response.data.message)} else { 
+        setLogginStatus(response.data[0].username)
+        console.log(history)
+        history.push("/calendar")
+      }
     })
  }
 
@@ -26,7 +35,8 @@ function Home() {
     console.log(response)  
     if(response.data.loggedIn){ setLogginStatus(response.data.user[0].username) }})
  } , 
- []); //[] run only at initial render
+ []); 
+ //[] run only at initial render
 
   return (
        
